@@ -1,7 +1,10 @@
 <template>
   <div>
-    <div class="Banner">
-      <div class="title">ATRI</div>
+    <div class="banner">
+      <div class="menu">
+        <p>C G 鉴赏</p>
+        <p></p>
+      </div>
     </div>
     <div class="cg_show">
       <ul class="cg_list">
@@ -133,6 +136,22 @@ export default {
 </script>
 
 <style scoped lang="scss">
+.banner{
+ 
+  background: url('https://img.picgo.net/2024/08/09/title_base223d2708d7c4dc262.png') no-repeat 0 0;
+  background-size: cover;
+  width: 86vw;
+  padding: 7vw;
+  .menu{
+    
+    margin-left: -4rem;
+    background: white;
+    width: 40rem;
+    min-height: 45rem;
+
+  }
+}
+
 .cg_show{
   width: 100%;
   

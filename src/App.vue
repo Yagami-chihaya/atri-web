@@ -16,5 +16,7 @@ import topNavbar from './components/common/topNavbar.vue';
 
 
 <style scoped>
-
+#nav{
+  position: relative;
+}
 </style>

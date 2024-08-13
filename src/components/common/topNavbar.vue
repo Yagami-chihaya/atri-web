@@ -2,16 +2,16 @@
   <div class="topNavbar">
     <div class="left">
       <div class="img">
-        <img src="">
+        <img src="\src\assets\img\logo.png">
       </div>
       <p>ATRI -MY DEAR MOMENTS-</p>
     </div>
     <div class="right">
       <ul class="routeList">
-        <router-link to="/">Home</router-link>
-        <router-link to="/recommand">开溜！！</router-link>
-        <router-link to="/texture">文章</router-link>
-        <router-link to="/about">关于</router-link>
+        <router-link to="/"><Button_one btn_title="Home"></Button_one></router-link>
+        <router-link to="/recommand"><Button_one btn_title="开溜！！"></Button_one></router-link>
+        <router-link to="/texture"><Button_one btn_title="文章"></Button_one></router-link>
+        <router-link to="/about"><Button_one btn_title="关于"></Button_one></router-link>
       </ul>
       <div class="user">
         <div class="avatar">
@@ -27,12 +27,17 @@
 </template>
 
 <script>
+import Button_one from './button_one.vue'
 export default {
   el: '',
   data () {
     return {
       
     }
+  },
+  components:{
+    Button_one
+
   },
   methods: {
 
@@ -42,11 +47,13 @@ export default {
 
 <style scoped lang="scss">
  .topNavbar{
+  position: fixed;
   display: flex;
   flex-wrap: nowrap;
   justify-content: space-between;
   align-items: center;
   background: rgba(0, 0, 0, 0.247);
+  width: 100vw;
   height: 5rem;
   .left{
     height: 100%;
@@ -58,12 +65,13 @@ export default {
       width: 3.5rem;
       height: 3.5rem;
       overflow: hidden;
-      background: black;
-      display: flex;
-      justify-self: center;
-      align-items: center;
+      position: relative;
+      
       img{
-        width: 4rem;
+        position: absolute;
+        top: 0;
+        left: -.2rem;
+        width: 8rem;
       }
     }
     p{
@@ -81,20 +89,22 @@ export default {
       color: white;
       font-size: 1rem;
       align-items: center;
-      a{
-        display: block;
-        width: 4rem;
-        padding: 1rem;
-        text-align: center;
-        background: rgba(255, 255, 255, 0.459);
-        border: 1px solid lightgrey;
-        color: white;
-        text-decoration: none;
-      }
-      a:hover{
-        background: white;
-        color: aqua;
-      }
+      width: 30rem;
+      justify-content: space-around;
+      // a{
+      //   display: block;
+      //   width: 4rem;
+      //   padding: 1rem;
+      //   text-align: center;
+      //   background: rgba(255, 255, 255, 0.459);
+      //   border: 1px solid lightgrey;
+      //   color: white;
+      //   text-decoration: none;
+      // }
+      // a:hover{
+      //   background: white;
+      //   color: aqua;
+      // }
     }
     .routeList::after{
       margin-left:1rem;
@@ -129,5 +139,7 @@ export default {
     }
   }
  }
+
+
  
 </style>
