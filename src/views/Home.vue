@@ -130,10 +130,6 @@ export default {
       this.CGurl = url
     },
     StringToURL:(myurl)=>{
-      console.log('myurl',myurl);
-      console.log('myurl',new URL(myurl,import.meta.url));
-      
-      
       return new URL(myurl,import.meta.url)
     }
   },

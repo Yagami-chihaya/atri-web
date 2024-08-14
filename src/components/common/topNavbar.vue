@@ -4,7 +4,10 @@
       <div class="img">
         <img src="\src\assets\img\logo.png">
       </div>
-      <p>ATRI -MY DEAR MOMENTS-</p>
+      <button class="button" data-text="Awesome">
+        <span class="actual-text">&nbsp;ATRI&nbsp;My&nbsp;Dear&nbsp;Moments&nbsp;</span>
+        <span aria-hidden="true" class="hover-text">&nbsp;ATRI&nbsp;My&nbsp;Dear&nbsp;Moments&nbsp;</span>
+      </button>
     </div>
     <div class="right">
       <ul class="routeList">
@@ -55,6 +58,7 @@ export default {
   background: rgba(0, 0, 0, 0.247);
   width: 100vw;
   height: 5rem;
+  transition: .3s;
   .left{
     height: 100%;
     display: flex;
@@ -75,10 +79,51 @@ export default {
         width: 8rem;
       }
     }
-    p{
-      margin-left: 1rem;
-      color: white;
-      font-size: 1.2rem;
+   
+
+    .button {
+      
+      margin: 0;
+      margin-left: .7rem;
+      height: auto;
+      background: transparent;
+      padding: 0;
+      border: none;
+      cursor: pointer;
+    }
+
+   
+    .button {
+      --border-right: 3px;
+      --text-stroke-color: rgba(255,255,255,0.6);
+      --animation-color: #37d7ff;
+      --fs-size: 2em;
+      letter-spacing: 3px;
+      text-decoration: none;
+      font-size: var(--fs-size);
+      font-family: "Arial";
+      position: relative;
+      text-transform: uppercase;
+      color: transparent;
+      -webkit-text-stroke: 1px var(--text-stroke-color);
+    }
+    
+    .hover-text {
+      position: absolute;
+      box-sizing: border-box;
+      content: attr(data-text);
+      color: var(--animation-color);
+      width: 0%;
+      inset: 0;
+      border-right: var(--border-right) solid var(--animation-color);
+      overflow: hidden;
+      transition: 0.5s;
+      -webkit-text-stroke: 1px var(--animation-color);
+    }
+   
+    .button:hover .hover-text {
+      width: 100%;
+      filter: drop-shadow(0 0 23px var(--animation-color))
     }
 
   }
@@ -92,20 +137,7 @@ export default {
       align-items: center;
       width: 30rem;
       justify-content: space-around;
-      // a{
-      //   display: block;
-      //   width: 4rem;
-      //   padding: 1rem;
-      //   text-align: center;
-      //   background: rgba(255, 255, 255, 0.459);
-      //   border: 1px solid lightgrey;
-      //   color: white;
-      //   text-decoration: none;
-      // }
-      // a:hover{
-      //   background: white;
-      //   color: aqua;
-      // }
+      
     }
     .routeList::after{
       margin-left:1rem;
@@ -140,7 +172,11 @@ export default {
     }
   }
  }
-
+ .topNavbar:hover{
+  
+  background: rgba(0, 0, 0, 0.5);
+  
+ }
 
  
 </style>
