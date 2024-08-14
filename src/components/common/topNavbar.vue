@@ -66,6 +66,7 @@ export default {
       height: 3.5rem;
       overflow: hidden;
       position: relative;
+      border-radius: 5px;
       
       img{
         position: absolute;

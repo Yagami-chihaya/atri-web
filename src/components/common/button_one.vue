@@ -24,7 +24,6 @@ export default {
 <style scoped>
 
 
-/* From Uiverse.io by WhiteNervosa */ 
 button {
   font-size: 18px;
   color: #e1e1e1;

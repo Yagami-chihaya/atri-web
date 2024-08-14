@@ -2,8 +2,11 @@
   <div>
     <div class="banner">
       <div class="menu">
-        <p>C G 鉴赏</p>
-        <p></p>
+        <p class="title">C G 鉴赏</p>
+        <p class="title">BGM 鉴赏</p>
+        <p class="title">AI talk</p>
+        <p class="title">更新log</p>
+        <p class="title">Comments</p>
       </div>
     </div>
     <div class="cg_show">
@@ -22,6 +25,7 @@
 <script>
 import CGplayer from '@/components/common/cgplayer.vue'
 import { useStore } from '../store/index.js'
+import Button_one from '@/components/common/button_one.vue'
 
 
 const store = useStore()
@@ -117,6 +121,7 @@ export default {
   },
   components: {
     CGplayer,
+    Button_one,
 
   },
   methods: {
@@ -140,15 +145,55 @@ export default {
  
   background: url('https://img.picgo.net/2024/08/09/title_base223d2708d7c4dc262.png') no-repeat 0 0;
   background-size: cover;
-  width: 86vw;
-  padding: 7vw;
+  width: 100%;
+  height: 100vh;
   .menu{
     
-    margin-left: -4rem;
-    background: white;
-    width: 40rem;
+    
+    padding:10rem 15rem;
+    width: 15rem;
+    
     min-height: 45rem;
+    .title{
+      font-family: 'GenJyuuGothicX-Bold';
+      display: inline-block;
+      color: #0953b3;
+      text-shadow:
+        -2px -2px 0 #FFF,
+        2px -2px 0 #FFF,
+        -2px 2px 0 #FFF,
+        2px 2px 0 #FFF; /* 文字描边 */
+      margin: 2rem 0;
+      font-size: 2.5rem;
+      font-weight: bolder;
+      cursor: pointer;
+      position: relative;
+      border: none;
+      background: none;
+      text-transform: uppercase;
+      transition-timing-function: cubic-bezier(0.25, 0.8, 0.25, 1);
+      transition-duration: 400ms;
+      transition-property: color;
+    }
+    .title:focus:after,
+    .title:hover:after {
+      width: 100%;
+      left: 0%;
+    }
 
+    .title:after {
+      content: "";
+      pointer-events: none;
+      bottom: -2px;
+      left: 50%;
+      position: absolute;
+      width: 0%;
+      height: 2px;
+      background-color: #fff;
+      transition-timing-function: cubic-bezier(0.25, 0.8, 0.25, 1);
+      transition-duration: 400ms;
+      transition-property: width, left;
+    }
   }
 }
 
