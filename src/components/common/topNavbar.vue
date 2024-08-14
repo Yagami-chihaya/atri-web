@@ -166,9 +166,7 @@ export default {
           width: 3.5rem;
         }
       }
-      .info{
-        
-      }
+    
     }
   }
  }
