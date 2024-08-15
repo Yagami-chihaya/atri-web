@@ -6,6 +6,7 @@
     <div id="aplayer" style="left: auto;width: 400px;opacity: .6;transition: .3s;">
 
     </div>
+  
   </div>
   
 </template>
@@ -18,6 +19,7 @@ export default {
   el: '',
   data () {
     return {
+      player:{},
       options:{
         audio:[
           {
@@ -62,14 +64,32 @@ export default {
     }
   },
   methods: {
+    initPlayer:function(){
+      return new Promise((resolve,reject)=>{
+        const player = new APlayer({
+          container:document.getElementById('aplayer'),
+          ...this.options
+        });
+        player.audio.autoplay = true
+        resolve(player)
+        
+      })
+      
+    },
 
+    
+    
   },
+  
   mounted(){
-   
-    const ap = new APlayer({
-      container:document.getElementById('aplayer'),
-      ...this.options
-    });
+    this.initPlayer().then(player=>{
+      player.play()
+      
+    })
+    
+    
+    
+    
     
   }
 }

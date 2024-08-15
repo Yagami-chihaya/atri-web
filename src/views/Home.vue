@@ -9,12 +9,34 @@
         <p class="title">Comments</p>
       </div>
     </div>
-    <div class="cg_show">
-      <ul class="cg_list">
-        <li v-for="item in cg_list[0].list" class="cg_info" :key="item" @click="showCG(item.coverURL)">
-          <img :src="StringToURL(item.url).href" alt=" ">
-        </li>
-      </ul>
+    <div class="container" id="CG_show">
+      <div class="head">
+        <h2 class="title">Memory</h2>
+        <label class="switch">
+          <input type="checkbox">
+          <span class="slider" @click="changeCgStyle"></span>
+        </label>
+      </div>
+      <div class="content">
+        
+        <div class="list_box">
+          <ul class="cg_list" v-show="!CGStyle">
+            <li v-for="item in cg_list[0].list" class="cg_info" :key="item" @click="showCG(item.coverURL)">
+              <img :src="StringToURL(item.url).href" alt=" ">
+            </li>
+          </ul>
+          <el-carousel v-show="CGStyle" class="cg_card" :interval="4000" type="card" height="300px">
+            <el-carousel-item v-for="item in cg_list[0].list" :key="item" @click="showCG(item.coverURL)">
+              <div class="imgBox">
+                <img :src="StringToURL(item.url).href" alt=" ">
+              </div>
+              
+            </el-carousel-item>
+          </el-carousel>
+        </div>
+      </div>
+
+
     </div>
     <CGplayer v-show="isCGplayerShow">
       <img :src="CGurl">
@@ -35,7 +57,7 @@ export default {
   el: 'home',
   data() {
     return {
-      cg_list:[
+      cg_list: [
         {
           name: "img",
           id: 0,
@@ -115,8 +137,9 @@ export default {
 
 
         }
-      ]
-    
+      ],
+      CGStyle: false,
+
     }
   },
   components: {
@@ -129,28 +152,36 @@ export default {
       store.isCGplayerShow = true
       this.CGurl = url
     },
-    StringToURL:(myurl)=>{
-      return new URL(myurl,import.meta.url)
+    StringToURL: (myurl) => {
+      return new URL(myurl, import.meta.url)
+    },
+    changeCgStyle: function () {
+
+      this.CGStyle = !this.CGStyle
+      console.log(this.CGStyle);
+
     }
   },
 }
 </script>
 
 <style scoped lang="scss">
-.banner{
- 
+.banner {
+
   background: url('https://img.picgo.net/2024/08/09/title_base223d2708d7c4dc262.png') no-repeat 0 0;
   background-size: cover;
   width: 100%;
   height: 100vh;
-  .menu{
-    
-    
-    padding:10rem 15rem;
+
+  .menu {
+
+
+    padding: 10rem 15rem;
     width: 15rem;
-    
+
     min-height: 45rem;
-    .title{
+
+    .title {
       font-family: 'GenJyuuGothicX-Bold';
       display: inline-block;
       color: #0953b3;
@@ -158,7 +189,8 @@ export default {
         -2px -2px 0 #FFF,
         2px -2px 0 #FFF,
         -2px 2px 0 #FFF,
-        2px 2px 0 #FFF; /* 文字描边 */
+        2px 2px 0 #FFF;
+      /* 文字描边 */
       margin: 2rem 0;
       font-size: 2.5rem;
       font-weight: bolder;
@@ -171,6 +203,7 @@ export default {
       transition-duration: 400ms;
       transition-property: color;
     }
+
     .title:focus:after,
     .title:hover:after {
       width: 100%;
@@ -193,15 +226,111 @@ export default {
   }
 }
 
-.cg_show{
+.container {
   width: 100%;
-  
+
   background: rgba(0, 0, 0, 0.637);
-  .cg_list{
+
+  .head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid lightgrey;
+    .title{
+      color: white;
+      font-weight: bolder;
+      padding: 2rem 5rem;
+    }
+  }
+  .content{
+    
+  }
+}
+
+
+#CG_show {
+
+  .list_box {
+    width: 94%;
+    margin: 0 auto;
+  }
+
+  .switch {
+    position: relative;
+    display: inline-block;
+    width: 120px;
+    height: 34px;
+    margin-right: 5rem;
+  }
+
+  .switch input {
+    display: none;
+  }
+
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #3C3C3C;
+    -webkit-transition: .4s;
+    transition: .4s;
+    border-radius: 34px;
+  }
+
+  .slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+    border-radius: 50%;
+  }
+
+  input:checked+.slider {
+    background-color: #0E6EB8;
+  }
+
+  input:focus+.slider {
+    box-shadow: 0 0 1px #2196F3;
+  }
+
+  input:checked+.slider:before {
+    -webkit-transform: translateX(26px);
+    -ms-transform: translateX(26px);
+    transform: translateX(85px);
+  }
+
+
+  .slider:after {
+    content: '列表风格';
+    color: white;
+    display: block;
+    position: absolute;
+    transform: translate(-50%, -50%);
+    top: 50%;
+    left: 50%;
+    font-size: 10px;
+    font-family: Verdana, sans-serif;
+  }
+
+  input:checked+.slider:after {
+    content: '卡片风格';
+  }
+
+
+  .cg_list {
     display: flex;
     justify-content: space-evenly;
     flex-wrap: wrap;
-    li{
+
+    li {
       border: 1px solid lightgrey;
       list-style: none;
       width: 22rem;
@@ -211,11 +340,27 @@ export default {
       align-items: center;
       overflow: hidden;
       margin: 1rem;
-      img{
+
+      img {
         width: 22rem;
       }
     }
   }
-}
 
+  .cg_card{
+    padding: 5rem 0;
+    .imgBox{
+      width: 100%;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      img{
+        width: 98%;
+        height: 98%;
+        border: 1px solid lightgrey;
+      }
+    }
+  }
+}
 </style>

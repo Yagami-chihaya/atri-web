@@ -59,6 +59,7 @@ export default {
   width: 100vw;
   height: 5rem;
   transition: .3s;
+  z-index: 2;
   .left{
     height: 100%;
     display: flex;
