@@ -52,7 +52,7 @@ export default {
         order:'list',
         preload:'auto',
         mutex: true,
-        listFolded: false,
+        listFolded: true,
         listMaxHeight: 5,
         lrcType: 3,
         volume:.4,

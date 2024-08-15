@@ -135,7 +135,7 @@ export default {
       color: white;
       font-size: 1rem;
       align-items: center;
-      width: 30rem;
+      width: 25rem;
       justify-content: space-around;
       
     }
@@ -147,7 +147,7 @@ export default {
       font-weight: 200;
     }
     .user{
-      margin:0 1rem;
+      margin:0 2rem;
       display: flex;
       align-items: center;
       color: white;
