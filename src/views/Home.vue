@@ -24,6 +24,7 @@
             <li v-for="item in cg_list[0].list" class="cg_info" :key="item" @click="showCG(item.coverURL)">
               <img :src="StringToURL(item.url).href" alt=" ">
             </li>
+            <el-pagination background layout="prev, pager, next" :total="1000" />
           </ul>
           <el-carousel v-show="CGStyle" class="cg_card" :interval="4000" type="card" height="300px">
             <el-carousel-item v-for="item in cg_list[0].list" :key="item" @click="showCG(item.coverURL)">
@@ -46,10 +47,10 @@
 
 <script>
 import CGplayer from '@/components/common/cgplayer.vue'
-import { useStore } from '../store/index.js'
 import Button_one from '@/components/common/button_one.vue'
 
-
+import { useStore } from '../store/index.js'
+import {StringToURL} from '/src/utils/index.js'
 const store = useStore()
 
 
@@ -152,9 +153,7 @@ export default {
       store.isCGplayerShow = true
       this.CGurl = url
     },
-    StringToURL: (myurl) => {
-      return new URL(myurl, import.meta.url)
-    },
+    StringToURL,
     changeCgStyle: function () {
 
       this.CGStyle = !this.CGStyle
@@ -243,7 +242,9 @@ export default {
     }
   }
   .content{
-    
+    width: 94%;
+    margin: 0 auto;
+    padding: 2rem 0;
   }
 }
 
@@ -251,8 +252,7 @@ export default {
 #CG_show {
 
   .list_box {
-    width: 94%;
-    margin: 0 auto;
+    
   }
 
   .switch {

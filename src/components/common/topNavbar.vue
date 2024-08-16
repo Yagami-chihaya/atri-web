@@ -173,7 +173,7 @@ export default {
  }
  .topNavbar:hover{
   
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.6);
   
  }
 

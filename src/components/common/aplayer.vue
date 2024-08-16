@@ -1,27 +1,30 @@
 <template>
-  <div>
+  <div class="minePlayer">
     <div class="title">
-      <img src="">
+      <img @error="imgError" :src="StringToURL(title_img_url).href">
     </div>
-    <div id="aplayer" style="left: auto;width: 400px;opacity: .6;transition: .3s;">
+    <div id="aplayer" style="left: auto;width: 400px;">
 
     </div>
-  
+
   </div>
-  
+
 </template>
 
 <script>
 import 'APlayer/dist/APlayer.min.css';
 import APlayer from 'APlayer';
 
+import { StringToURL } from '../../utils'
+
 export default {
   el: '',
-  data () {
+  data() {
     return {
-      player:{},
-      options:{
-        audio:[
+      player: {},
+      title_img_index: 0,
+      options: {
+        audio: [
           {
             name: 'Days Of Love',
             artist: '松本文纪',
@@ -31,92 +34,257 @@ export default {
             theme: '#ebd0c2'
           },
           {
-            name: 'Days Of Love',
-            artist: '松本文纪',
-            url: '/src/assets/bgm/BGM20.ogg',
+            name: 'Dear Moments',
+            artist: '赤尾ひかる',
+            url: '/src/assets/bgm/ed.ogg',
             cover: '/src/assets/img/cover.jpg',
             lrc: '',
             theme: '#ebd0c2'
           },
           {
-            name: 'Days Of Love',
-            artist: '松本文纪',
-            url: '/src/assets/bgm/BGM20.ogg',
+            name: '光放て！ - (绽放光芒！)',
+            artist: '柳麻美',
+            url: '/src/assets/bgm/op_short.ogg',
             cover: '/src/assets/img/cover.jpg',
             lrc: '',
             theme: '#ebd0c2'
           },
+          {
+            name: 'The Sunken City',
+            artist: '松本文纪',
+            url: '/src/assets/bgm/BGM01.ogg',
+            cover: '/src/assets/img/cover.jpg',
+            lrc: '',
+            theme: '#ebd0c2'
+          },
+          {
+            name: 'Hope\'s Light',
+            artist: '松本文纪',
+            url: '/src/assets/bgm/BGM02.ogg',
+            cover: '/src/assets/img/cover.jpg',
+            lrc: '',
+            theme: '#ebd0c2'
+          },
+          {
+            name: 'Tranquil Moments',
+            artist: '松本文纪',
+            url: '/src/assets/bgm/BGM03.ogg',
+            cover: '/src/assets/img/cover.jpg',
+            lrc: '',
+            theme: '#ebd0c2'
+          },
+          {
+            name: 'Vertigo',
+            artist: '松本文纪',
+            url: '/src/assets/bgm/BGM04.ogg',
+            cover: '/src/assets/img/cover.jpg',
+            lrc: '',
+            theme: '#ebd0c2'
+          },
+          {
+            name: 'The Face I See When I Close My Eyes',
+            artist: '松本文纪',
+            url: '/src/assets/bgm/BGM05.ogg',
+            cover: '/src/assets/img/cover.jpg',
+            lrc: '',
+            theme: '#ebd0c2'
+          },
+          {
+            name: 'The Happy Little Killer Robot',
+            artist: '松本文纪',
+            url: '/src/assets/bgm/BGM06.ogg',
+            cover: '/src/assets/img/cover.jpg',
+            lrc: '',
+            theme: '#ebd0c2'
+          },
+          {
+            name: 'Good Morning, Sunshine',
+            artist: '松本文纪',
+            url: '/src/assets/bgm/BGM07.ogg',
+            cover: '/src/assets/img/cover.jpg',
+            lrc: '',
+            theme: '#ebd0c2'
+          },
+          {
+            name: 'The Brink Of Death',
+            artist: '松本文纪',
+            url: '/src/assets/bgm/BGM08.ogg',
+            cover: '/src/assets/img/cover.jpg',
+            lrc: '',
+            theme: '#ebd0c2'
+          },
+          {
+            name: 'Walking In The Twilight',
+            artist: '松本文纪',
+            url: '/src/assets/bgm/BGM09.ogg',
+            cover: '/src/assets/img/cover.jpg',
+            lrc: '',
+            theme: '#ebd0c2'
+          },
+          {
+            name: 'A Soothing Breeze',
+            artist: '松本文纪',
+            url: '/src/assets/bgm/BGM10.ogg',
+            cover: '/src/assets/img/cover.jpg',
+            lrc: '',
+            theme: '#ebd0c2'
+          },
+          {
+            name: 'Working',
+            artist: '松本文纪',
+            url: '/src/assets/bgm/BGM11.ogg',
+            cover: '/src/assets/img/cover.jpg',
+            lrc: '',
+            theme: '#ebd0c2'
+          },
+          {
+            name: 'Halation',
+            artist: '松本文纪',
+            url: '/src/assets/bgm/BGM12.ogg',
+            cover: '/src/assets/img/cover.jpg',
+            lrc: '',
+            theme: '#ebd0c2'
+          },
+          {
+            name: 'Dumb Heap Of Scrap!',
+            artist: '松本文纪',
+            url: '/src/assets/bgm/BGM13.ogg',
+            cover: '/src/assets/img/cover.jpg',
+            lrc: '',
+            theme: '#ebd0c2'
+          },
+          {
+            name: 'The Children Play',
+            artist: '松本文纪',
+            url: '/src/assets/bgm/BGM14.ogg',
+            cover: '/src/assets/img/cover.jpg',
+            lrc: '',
+            theme: '#ebd0c2'
+          },
+          {
+            name: 'A Lull In The Sea',
+            artist: '松本文纪',
+            url: '/src/assets/bgm/BGM15.ogg',
+            cover: '/src/assets/img/cover.jpg',
+            lrc: '',
+            theme: '#ebd0c2'
+          },
+          {
+            name: 'Weigh Anchor!',
+            artist: '松本文纪',
+            url: '/src/assets/bgm/BGM16.ogg',
+            cover: '/src/assets/img/cover.jpg',
+            lrc: '',
+            theme: '#ebd0c2'
+          },
+          {
+            name: 'Shadowy Footsteps',
+            artist: '松本文纪',
+            url: '/src/assets/bgm/BGM17.ogg',
+            cover: '/src/assets/img/cover.jpg',
+            lrc: '',
+            theme: '#ebd0c2'
+          },
+
         ],
-        mini:false,
-        fixed:true,
-        autoplay:true,
-        loop:'all',
-        order:'list',
-        preload:'auto',
+
+        mini: false,
+        fixed: true,
+        autoplay: true,
+        loop: 'all',
+        order: 'list',
+        preload: 'auto',
         mutex: true,
         listFolded: true,
         listMaxHeight: 5,
         lrcType: 3,
-        volume:.4,
-            
-        
+        volume: .4,
+
+
       }
     }
   },
+  computed: {
+    title_img_url() {
+      console.log(this.title_img_index, 'computed')
+      return '/src/assets/img/bgm_title/bgmtitle_bgm' + this.title_img_index + '_cn.png'
+
+    }
+  },
+
   methods: {
-    initPlayer:function(){
-      return new Promise((resolve,reject)=>{
+    initPlayer: function () {
+      return new Promise((resolve, reject) => {
         const player = new APlayer({
-          container:document.getElementById('aplayer'),
+          container: document.getElementById('aplayer'),
           ...this.options
         });
+   
         player.audio.autoplay = true
         resolve(player)
-        
-      })
-      
-    },
 
-    
-    
+      })
+
+    },
+    imgError:function(e){
+      e.target.src = ''
+    },
+    StringToURL,
+
   },
-  
-  mounted(){
-    this.initPlayer().then(player=>{
+
+  mounted() {
+    let vm = this
+    let minePlayer = document.getElementsByClassName('minePlayer')[0]
+    let titleDOM = minePlayer.querySelector('.title')
+
+    this.initPlayer().then(player => {
       player.play()
-      
+      player.on('listswitch', function (e) {
+        vm.title_img_index = e.index + 1
+        //切换动画
+        titleDOM.animate([
+          {transform:"translateX(0px)"},
+          {transform:'translateX(600px)',offset:.49},
+          {transform:'translateX(-30px)',opacity:.6,offset:.5},
+          {transform:'translateX(0)'}
+        ],1000)
+      });
     })
-    
-    
-    
-    
-    
   }
 }
 </script>
 
 <style scoped lang="scss">
-
-.aplayer:hover{
+.minePlayer{
+  transition: .3s !important;
+  opacity: .6;
+}
+.minePlayer:hover{
   opacity: 1 !important;
 }
 
-::v-deep .aplayer-list{
-  transition: .3s !important;
+.title{
+  position: fixed;
+  bottom: 60px;
+  right: 0;
+  width: 400px;
+  border-radius: 5px;
+
 }
 
-::v-deep .aplayer-body{
- 
 
- left: auto !important;
- width: 382px !important;
+::v-deep .aplayer-body {
+
+
+  left: auto !important;
+  width: 382px !important;
 }
 
 
 
-::v-deep .aplayer-info{
+::v-deep .aplayer-info {
   display: block !important;
-  
-}
 
+}
 </style>
