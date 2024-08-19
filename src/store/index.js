@@ -1,6 +1,6 @@
-import {defineStore} from 'pinia'
+import {defineStore } from 'pinia'
 
-export const useStore=defineStore('storeId',{
+export const useCounterStore=defineStore('index',{
   state:()=>{
     return{
       isCGplayerShow:false,

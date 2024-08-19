@@ -18,16 +18,15 @@
         </label>
       </div>
       <div class="content">
-        
         <div class="list_box">
           <ul class="cg_list" v-show="!CGStyle">
-            <li v-for="item in cg_list[0].list" class="cg_info" :key="item" @click="showCG(item.coverURL)">
+            <li v-for="item in cg_list[0].list" class="cg_info" :key="item" @click="showCG(item.url)">
               <img :src="StringToURL(item.url).href" alt=" ">
             </li>
             <el-pagination background layout="prev, pager, next" :total="1000" />
           </ul>
           <el-carousel v-show="CGStyle" class="cg_card" :interval="4000" type="card" height="300px">
-            <el-carousel-item v-for="item in cg_list[0].list" :key="item" @click="showCG(item.coverURL)">
+            <el-carousel-item v-for="item in cg_list[0].list" :key="item" @click="showCG(item.url)">
               <div class="imgBox">
                 <img :src="StringToURL(item.url).href" alt=" ">
               </div>
@@ -40,7 +39,8 @@
 
     </div>
     <CGplayer v-show="isCGplayerShow">
-      <img :src="CGurl">
+      
+      <img :src="StringToURL(CGurl).href">
     </CGplayer>
   </div>
 </template>
@@ -49,10 +49,14 @@
 import CGplayer from '@/components/common/cgplayer.vue'
 import Button_one from '@/components/common/button_one.vue'
 
-import { useStore } from '../store/index.js'
-import {StringToURL} from '/src/utils/index.js'
-const store = useStore()
+import { useCounterStore } from '/src/store/index.js'
+import { storeToRefs } from 'pinia'
 
+import {StringToURL} from '/src/utils/index.js'
+
+const store = useCounterStore()
+const {isCGplayerShow} = storeToRefs(store)
+console.log(isCGplayerShow,'store')
 
 export default {
   el: 'home',
@@ -140,7 +144,8 @@ export default {
         }
       ],
       CGStyle: false,
-
+      CGurl:'',
+      isCGplayerShow,
     }
   },
   components: {
@@ -149,8 +154,8 @@ export default {
 
   },
   methods: {
-    showCG: (url) => {
-      store.isCGplayerShow = true
+    showCG: function(url){
+      isCGplayerShow.value = true
       this.CGurl = url
     },
     StringToURL,
@@ -361,6 +366,13 @@ export default {
         border: 1px solid lightgrey;
       }
     }
+  }
+}
+
+.cgPlayer{
+  img{
+    width: 100%;
+    
   }
 }
 </style>

@@ -22,7 +22,7 @@ export default {
   data() {
     return {
       player: {},
-      title_img_index: 0,
+      title_img_index: 1,
       options: {
         audio: [
           {
@@ -206,7 +206,7 @@ export default {
   },
   computed: {
     title_img_url() {
-      console.log(this.title_img_index, 'computed')
+      
       return '/src/assets/img/bgm_title/bgmtitle_bgm' + this.title_img_index + '_cn.png'
 
     }
