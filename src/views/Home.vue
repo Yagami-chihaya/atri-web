@@ -20,17 +20,16 @@
       <div class="content">
         <div class="list_box">
           <ul class="cg_list" v-show="!CGStyle">
-            <li v-for="item in cg_list[0].list" class="cg_info" :key="item" @click="showCG(item)">
+            <li v-for="item in cg_single_list" class="cg_info" :key="item" @click="showCG(item)">
               <img :src="StringToURL(item.coverURL).href" alt=" ">
             </li>
-            <el-pagination background layout="prev, pager, next" :total="1000" />
+            <el-pagination background layout="prev, pager, next" @current-change="changeCGPage" :total="cg_list[0].list.length"  />
           </ul>
-          <el-carousel v-show="CGStyle" class="cg_card" :interval="4000" type="card" height="300px">
-            <el-carousel-item v-for="item in cg_list[0].list" :key="item" @click="showCG(item)">
+          <el-carousel v-show="CGStyle" class="cg_card" indicator-position="none" :interval="4000" type="card" height="300px">
+            <el-carousel-item v-for="item in cg_single_list" :key="item" @click="showCG(item)">
               <div class="imgBox">
                 <img :src="StringToURL(item.coverURL).href" alt=" ">
               </div>
-              
             </el-carousel-item>
           </el-carousel>
         </div>
@@ -39,8 +38,22 @@
 
     </div>
     <CGplayer v-show="isCGplayerShow">
-      
-      <img :src="StringToURL(CGurl).href" @click="nextCG">
+      <el-image :src="StringToURL(CGurl).href" @click="nextCG">
+        <template #placeholder>
+          
+          <div class="loader">
+            <span class="l">L</span>
+            <span class="o">o</span>
+            <span class="a">a</span>
+            <span class="d">d</span>
+            <span class="i">i</span>
+            <span class="n">n</span>
+            <span class="g">g</span>
+            <span class="d1">.</span>
+            <span class="d2">.</span>
+          </div>
+        </template>
+      </el-image>
     </CGplayer>
   </div>
 </template>
@@ -349,17 +362,21 @@ export default {
             },
           
             
-          ]
-
-
-
+          ],
+          
         }
       ],
+      cg_single_list:[],
+      list_count:9,
+
+
       CGStyle: false,
       CGurl:'',
       childCG:[],
       CGindex:0,
       isCGplayerShow,
+
+      
     }
   },
   components: {
@@ -394,8 +411,16 @@ export default {
       this.CGStyle = !this.CGStyle
       console.log(this.CGStyle);
 
+    },
+    changeCGPage:function(index){
+   
+      this.cg_single_list = this.cg_list[0].list.slice((index-1)*this.list_count,index*this.list_count)
+      
     }
   },
+  created(){
+    this.changeCGPage(1)
+  }
 }
 </script>
 
@@ -564,7 +589,11 @@ export default {
     display: flex;
     justify-content: space-evenly;
     flex-wrap: wrap;
-
+    .el-pagination{
+      width: 100%;
+      display: flex;
+      justify-content: center;
+    }
     li {
       border: 1px solid lightgrey;
       list-style: none;
@@ -600,9 +629,127 @@ export default {
 }
 
 .cgPlayer{
+  z-index: 2;
   img{
     width: 100%;
     
   }
+}
+
+
+.loader{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+.l {
+  color: black;
+  opacity: 0;
+  animation: pass 2s ease-in-out infinite;
+  animation-delay: 0.2s;
+  letter-spacing: 0.5em;
+  text-shadow: 2px 2px 3px #919191;
+}
+
+.o {
+  color: black;
+  opacity: 0;
+  animation: pass 2s ease-in-out infinite;
+  animation-delay: 0.4s;
+  letter-spacing: 0.5em;
+  text-shadow: 2px 2px 3px #919191;
+}
+
+.a {
+  color: black;
+  opacity: 0;
+  animation: pass 2s ease-in-out infinite;
+  animation-delay: 0.6s;
+  letter-spacing: 0.5em;
+  text-shadow: 2px 2px 3px #919191;
+}
+
+.d {
+  color: black;
+  opacity: 0;
+  animation: pass 2s ease-in-out infinite;
+  animation-delay: 0.8s;
+  letter-spacing: 0.5em;
+  text-shadow: 2px 2px 3px #919191;
+}
+
+.i {
+  color: black;
+  opacity: 0;
+  animation: pass 2s ease-in-out infinite;
+  animation-delay: 1s;
+  letter-spacing: 0.5em;
+  text-shadow: 2px 2px 3px #919191;
+}
+
+.n {
+  color: black;
+  opacity: 0;
+  animation: pass 2s ease-in-out infinite;
+  animation-delay: 1.2s;
+  letter-spacing: 0.5em;
+  text-shadow: 2px 2px 3px #919191;
+}
+
+.g {
+  color: black;
+  opacity: 0;
+  animation: pass 2s ease-in-out infinite;
+  animation-delay: 1.4s;
+  letter-spacing: 0.5em;
+  text-shadow: 2px 2px 3px #919191;
+}
+
+.d1 {
+  color: black;
+  opacity: 0;
+  animation: pass1 2s ease-in-out infinite;
+  animation-delay: 1.6s;
+  letter-spacing: 0.5em;
+  text-shadow: 2px 2px 3px #919191;
+}
+
+.d2 {
+  color: black;
+  opacity: 0;
+  animation: pass1 2s ease-in-out infinite;
+  animation-delay: 2s;
+  letter-spacing: 0.5em;
+  text-shadow: 2px 2px 3px #919191;
+}
+
+@keyframes pass {
+  0% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes pass1 {
+  0% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
 }
 </style>
