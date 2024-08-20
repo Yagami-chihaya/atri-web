@@ -12,20 +12,32 @@
     <div class="container" id="CG_show">
       <div class="head">
         <h2 class="title">Memory</h2>
-        <label class="switch">
-          <input type="checkbox">
-          <span class="slider" @click="changeCgStyle"></span>
-        </label>
+
+
+    
+        <div class="radio-inputs">
+          <label class="radio" @click="changeCgStyle('list')">
+            <input type="radio" name="radio" checked="">
+            <span class="name">List</span>
+          </label>
+          <label class="radio">
+            <input type="radio" name="radio" @click="changeCgStyle('card')">
+            <span class="name">Card</span>
+          </label>
+              
+
+        </div>
+
       </div>
       <div class="content">
         <div class="list_box">
-          <ul class="cg_list" v-show="!CGStyle">
+          <ul class="cg_list" v-show="CGStyle=='list'">
             <li v-for="item in cg_single_list" class="cg_info" :key="item" @click="showCG(item)">
               <img :src="StringToURL(item.coverURL).href" alt=" ">
             </li>
             <el-pagination background layout="prev, pager, next" @current-change="changeCGPage" :total="cg_list[0].list.length"  />
           </ul>
-          <el-carousel v-show="CGStyle" class="cg_card" indicator-position="none" :interval="4000" type="card" height="300px">
+          <el-carousel v-show="CGStyle=='card'" class="cg_card" indicator-position="none" :interval="4000" type="card" height="300px">
             <el-carousel-item v-for="item in cg_single_list" :key="item" @click="showCG(item)">
               <div class="imgBox">
                 <img :src="StringToURL(item.coverURL).href" alt=" ">
@@ -370,7 +382,7 @@ export default {
       list_count:9,
 
 
-      CGStyle: false,
+      CGStyle: 'list',
       CGurl:'',
       childCG:[],
       CGindex:0,
@@ -406,10 +418,10 @@ export default {
       }
       
     },
-    changeCgStyle: function () {
+    changeCgStyle: function (mode) {
 
-      this.CGStyle = !this.CGStyle
-      console.log(this.CGStyle);
+      this.CGStyle = mode
+   
 
     },
     changeCGPage:function(index){
@@ -488,7 +500,7 @@ export default {
 .container {
   width: 100%;
 
-  background: rgba(0, 0, 0, 0.637);
+  background: rgb(255, 255, 255);
 
   .head {
     display: flex;
@@ -496,7 +508,7 @@ export default {
     align-items: center;
     border-bottom: 1px solid lightgrey;
     .title{
-      color: white;
+      color: #0953b3;
       font-weight: bolder;
       padding: 2rem 5rem;
     }
@@ -511,79 +523,45 @@ export default {
 
 #CG_show {
 
-  .list_box {
-    
-  }
+.radio-inputs {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  border-radius: 0.5rem;
+  background-color: #EEE;
+  box-sizing: border-box;
+  box-shadow: 0 0 0px 1px rgba(0, 0, 0, 0.06);
+  padding: 0.25rem;
+  width: 300px;
+  font-size: 14px;
+}
 
-  .switch {
-    position: relative;
-    display: inline-block;
-    width: 120px;
-    height: 34px;
-    margin-right: 5rem;
-  }
+.radio-inputs .radio {
+  flex: 1 1 auto;
+  text-align: center;
+}
 
-  .switch input {
-    display: none;
-  }
+.radio-inputs .radio input {
+  display: none;
+}
 
-  .slider {
-    position: absolute;
-    cursor: pointer;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: #3C3C3C;
-    -webkit-transition: .4s;
-    transition: .4s;
-    border-radius: 34px;
-  }
+.radio-inputs .radio .name {
+  display: flex;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.5rem;
+  border: none;
+  padding: .5rem 0;
+  color: rgba(51, 65, 85, 1);
+  transition: all .15s ease-in-out;
+}
 
-  .slider:before {
-    position: absolute;
-    content: "";
-    height: 26px;
-    width: 26px;
-    left: 4px;
-    bottom: 4px;
-    background-color: white;
-    -webkit-transition: .4s;
-    transition: .4s;
-    border-radius: 50%;
-  }
-
-  input:checked+.slider {
-    background-color: #0E6EB8;
-  }
-
-  input:focus+.slider {
-    box-shadow: 0 0 1px #2196F3;
-  }
-
-  input:checked+.slider:before {
-    -webkit-transform: translateX(26px);
-    -ms-transform: translateX(26px);
-    transform: translateX(85px);
-  }
-
-
-  .slider:after {
-    content: '列表风格';
-    color: white;
-    display: block;
-    position: absolute;
-    transform: translate(-50%, -50%);
-    top: 50%;
-    left: 50%;
-    font-size: 10px;
-    font-family: Verdana, sans-serif;
-  }
-
-  input:checked+.slider:after {
-    content: '卡片风格';
-  }
-
+.radio-inputs .radio input:checked + .name {
+  background-color: #fff;
+  font-weight: 600;
+}
+ 
 
   .cg_list {
     display: flex;
@@ -595,18 +573,26 @@ export default {
       justify-content: center;
     }
     li {
+      cursor: pointer;
       border: 1px solid lightgrey;
       list-style: none;
-      width: 22rem;
-      height: 11rem;
+      width: 28%;
+      padding: 1%;
       display: flex;
       justify-content: center;
       align-items: center;
       overflow: hidden;
-      margin: 1rem;
+      margin: 1% 0;
 
       img {
-        width: 22rem;
+        width: 100%;
+        transition: .3s;
+      }
+      
+    }
+    li:hover{
+      img{
+        scale: 1.2;
       }
     }
   }
@@ -634,6 +620,8 @@ export default {
     width: 100%;
     
   }
+ 
+
 }
 
 

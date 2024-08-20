@@ -244,11 +244,12 @@ export default {
         vm.title_img_index = e.index + 1
         //切换动画
         titleDOM.animate([
-          {transform:"translateX(0px)"},
-          {transform:'translateX(600px)',offset:.49},
-          {transform:'translateX(-30px)',opacity:.6,offset:.5},
-          {transform:'translateX(0)'}
-        ],1000)
+          
+          {transform:'translateX(-30px)',opacity:.5,offset:0},
+          {transform:'translateX(0)',opacity:1,offset:.2},
+          {transform:'translateX(0)',opacity:1,offset:.7},
+          {transform:'translateX(600px)',opacity:0,offset:1}
+        ],3000)
       });
     })
   }
@@ -270,7 +271,7 @@ export default {
   right: 0;
   width: 400px;
   border-radius: 5px;
-
+  opacity: 0;
 }
 
 

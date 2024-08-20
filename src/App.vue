@@ -2,7 +2,7 @@
 <template>
   <div id="nav">
     <topNavbar></topNavbar>
-    <RouterView />
+    <RouterView/>
     <aplayer></aplayer>
   </div>
 
