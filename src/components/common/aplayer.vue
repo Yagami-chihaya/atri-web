@@ -185,6 +185,22 @@ export default {
             lrc: '',
             theme: '#ebd0c2'
           },
+          {
+            name: '镌刻日常',
+            artist: '松本文纪',
+            url: '/src/assets/bgm/BGM18.ogg',
+            cover: '/src/assets/img/cover.jpg',
+            lrc: '',
+            theme: '#ebd0c2'
+          },
+          {
+            name: '泪水闪耀的瞬间',
+            artist: '松本文纪',
+            url: '/src/assets/bgm/BGM19.ogg',
+            cover: '/src/assets/img/cover.jpg',
+            lrc: '',
+            theme: '#ebd0c2'
+          },
 
         ],
 
