@@ -20,13 +20,13 @@
       <div class="content">
         <div class="list_box">
           <ul class="cg_list" v-show="!CGStyle">
-            <li v-for="item in cg_list[0].list" class="cg_info" :key="item" @click="showCG(item.url)">
+            <li v-for="item in cg_list[0].list" class="cg_info" :key="item" @click="showCG(item)">
               <img :src="StringToURL(item.coverURL).href" alt=" ">
             </li>
             <el-pagination background layout="prev, pager, next" :total="1000" />
           </ul>
           <el-carousel v-show="CGStyle" class="cg_card" :interval="4000" type="card" height="300px">
-            <el-carousel-item v-for="item in cg_list[0].list" :key="item" @click="showCG(item.url)">
+            <el-carousel-item v-for="item in cg_list[0].list" :key="item" @click="showCG(item)">
               <div class="imgBox">
                 <img :src="StringToURL(item.coverURL).href" alt=" ">
               </div>
@@ -40,7 +40,7 @@
     </div>
     <CGplayer v-show="isCGplayerShow">
       
-      <img :src="StringToURL(CGurl).href">
+      <img :src="StringToURL(CGurl).href" @click="nextCG">
     </CGplayer>
   </div>
 </template>
@@ -56,7 +56,7 @@ import {StringToURL} from '/src/utils/index.js'
 
 const store = useCounterStore()
 const {isCGplayerShow} = storeToRefs(store)
-console.log(isCGplayerShow,'store')
+console.log(isCGplayerShow,'store')  
 
 export default {
   el: 'home',
@@ -357,6 +357,8 @@ export default {
       ],
       CGStyle: false,
       CGurl:'',
+      childCG:[],
+      CGindex:0,
       isCGplayerShow,
     }
   },
@@ -366,11 +368,27 @@ export default {
 
   },
   methods: {
-    showCG: function(url){
-      isCGplayerShow.value = true
-      this.CGurl = url
-    },
     StringToURL,
+    showCG: function(item){
+      isCGplayerShow.value = true
+      this.CGurl = item.url
+      console.log(item,'CGURL')
+      this.childCG = item.children
+    },
+    nextCG:function(){
+      console.log(this.CGindex,'cgindex')
+      console.log(this.childCG,'childCG');
+      
+      if(this.CGindex<this.childCG.length){
+        console.log('if')
+        this.CGurl = this.childCG[this.CGindex]
+        this.CGindex++
+      }else{
+        isCGplayerShow.value = false
+        this.CGindex = 0
+      }
+      
+    },
     changeCgStyle: function () {
 
       this.CGStyle = !this.CGStyle

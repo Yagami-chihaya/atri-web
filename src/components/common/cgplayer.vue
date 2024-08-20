@@ -1,6 +1,6 @@
 <template>
   <div class="cgPlayer" @click="closeWindows">
-    <div class="content">
+    <div class="content" @click.stop>
       <button class="dismiss" type="button" @click="closeWindows">×</button>
       <slot></slot>
     </div>
