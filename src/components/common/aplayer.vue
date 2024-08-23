@@ -15,6 +15,11 @@
 import 'APlayer/dist/APlayer.min.css';
 import APlayer from 'APlayer';
 
+
+import { useCounterStore } from '/src/store/index.js'
+import { storeToRefs } from 'pinia'
+
+
 import { StringToURL } from '../../utils'
 
 export default {
@@ -185,6 +190,22 @@ export default {
             lrc: '',
             theme: '#ebd0c2'
           },
+          {
+            name: '镌刻日常',
+            artist: '松本文纪',
+            url: '/src/assets/bgm/BGM18.ogg',
+            cover: '/src/assets/img/cover.jpg',
+            lrc: '',
+            theme: '#ebd0c2'
+          },
+          {
+            name: '泪水闪耀的瞬间',
+            artist: '松本文纪',
+            url: '/src/assets/bgm/BGM19.ogg',
+            cover: '/src/assets/img/cover.jpg',
+            lrc: '',
+            theme: '#ebd0c2'
+          },
 
         ],
 
@@ -206,7 +227,7 @@ export default {
   },
   computed: {
     title_img_url() {
-      
+
       return '/src/assets/img/bgm_title/bgmtitle_bgm' + this.title_img_index + '_cn.png'
 
     }
@@ -219,14 +240,14 @@ export default {
           container: document.getElementById('aplayer'),
           ...this.options
         });
-   
+
         player.audio.autoplay = true
         resolve(player)
 
       })
 
     },
-    imgError:function(e){
+    imgError: function (e) {
       e.target.src = ''
     },
     StringToURL,
@@ -238,17 +259,33 @@ export default {
     let minePlayer = document.getElementsByClassName('minePlayer')[0]
     let titleDOM = minePlayer.querySelector('.title')
 
+    const store = useCounterStore()
+    const { aPlayer } = storeToRefs(store)
+
+    
+
     this.initPlayer().then(player => {
-      player.play()
+
+      aPlayer.value = player
+      titleDOM.animate([
+
+        { transform: 'translateX(-30px)', opacity: .5, offset: 0 },
+        { transform: 'translateX(0)', opacity: 1, offset: .3 },
+        { transform: 'translateX(0)', opacity: 1, offset: .7 },
+        { transform: 'translateX(600px)', opacity: 0, offset: 1 }
+      ], 5000)
+
+
       player.on('listswitch', function (e) {
         vm.title_img_index = e.index + 1
         //切换动画
         titleDOM.animate([
-          {transform:"translateX(0px)"},
-          {transform:'translateX(600px)',offset:.49},
-          {transform:'translateX(-30px)',opacity:.6,offset:.5},
-          {transform:'translateX(0)'}
-        ],1000)
+
+          { transform: 'translateX(-30px)', opacity: .5, offset: 0 },
+          { transform: 'translateX(0)', opacity: 1, offset: .2 },
+          { transform: 'translateX(0)', opacity: 1, offset: .7 },
+          { transform: 'translateX(600px)', opacity: 0, offset: 1 }
+        ], 3000)
       });
     })
   }
@@ -256,21 +293,24 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.minePlayer{
+.minePlayer {
   transition: .3s !important;
   opacity: .6;
+  z-index: 3;
+  position: relative;
 }
-.minePlayer:hover{
+
+.minePlayer:hover {
   opacity: 1 !important;
 }
 
-.title{
+.title {
   position: fixed;
   bottom: 60px;
   right: 0;
   width: 400px;
   border-radius: 5px;
-
+  opacity: 0;
 }
 
 

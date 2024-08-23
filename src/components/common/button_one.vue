@@ -25,7 +25,7 @@ export default {
 
 
 button {
-  font-size: 18px;
+  font-size: 1.2rem;
   color: #e1e1e1;
   font-family: inherit;
   font-weight: 800;
