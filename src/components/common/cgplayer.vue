@@ -4,50 +4,53 @@
       <button class="dismiss" type="button" @click="closeWindows">×</button>
       <slot></slot>
     </div>
-    
+
   </div>
 </template>
 
 <script>
-import { useCounterStore } from '/src/store/index.js'
-import { storeToRefs } from 'pinia'
-
-
-const store = useCounterStore()
-const {isCGplayerShow} = storeToRefs(store)
 
 
 export default {
   el: '',
-  data () {
+
+  data() {
     return {
-      
+
     }
   },
+  
   methods: {
-    closeWindows:()=>{
-      isCGplayerShow.value = false
+    closeWindows: function() {
+      this.$emit('close')
+      
+    },
+    openWindows:function(){
+      this.$emit('open')
+   
     }
+    
   },
 }
 </script>
 
 <style scoped lang="scss">
-.cgPlayer{
+.cgPlayer {
   width: 100vw;
   height: 120vh;
   position: fixed;
   left: 50%;
   top: 50%;
-  transform: translate(-50%,-50%);
+  transform: translate(-50%, -50%);
   display: flex;
   justify-content: center;
   align-items: center;
   background: rgba(0, 0, 0, 0.459);
   animation: open .3s;
-  .content{
-    width: 800px;
 
+  .content {
+    width: 800px;
+    min-width: 400px;
     box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
     background-color: #fff;
     position: relative;
@@ -57,6 +60,7 @@ export default {
     justify-content: center;
     align-items: center;
     padding: 50px;
+
     .dismiss {
       position: absolute;
       right: 10px;
@@ -85,13 +89,14 @@ export default {
   }
 }
 
-@keyframes open{
-  0%{
+@keyframes open {
+  0% {
     opacity: 0;
     margin-top: 100px;
 
   }
-  100%{
+
+  100% {
     opacity: 1;
   }
 }

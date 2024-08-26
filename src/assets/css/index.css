@@ -10,23 +10,49 @@
   src: url('../font/GenJyuuGothicX-Bold.ttf') format('truetype');
 }
 
-@media only screen and (max-width:600px){
+@media only screen and (max-width:700px){
+  html{
+    font-size: 8px;
+  }
+}
+@media only screen and (min-width:700px) and (max-width:800px){
+  html{
+    font-size: 9px;
+  }
+}
+@media only screen and (min-width:800px) and (max-width:900px){
   html{
     font-size: 10px;
   }
 }
-
-@media only screen and (min-width:600px) and (max-width:800px){
+@media only screen and (min-width:900px) and (max-width:1000px){
+  html{
+    font-size: 11px;
+  }
+}
+@media only screen and (min-width:1000px) and (max-width:1100px){
   html{
     font-size: 12px;
   }
 }
-@media only screen and (min-width:800px) and (max-width:1500px){
+
+@media only screen and (min-width:1100px) and (max-width:1200px){
+  html{
+    font-size: 13px;
+  }
+}
+
+@media only screen and (min-width:1200px) and (max-width:1300px){
   html{
     font-size: 14px;
   }
 }
-@media only screen and (min-width:1500px){
+@media only screen and (min-width:1300px) and (max-width:1400px){
+  html{
+    font-size: 15px;
+  }
+}
+@media only screen and (min-width:1400px){
   html{
     font-size: 16px;
   }
