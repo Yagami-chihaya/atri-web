@@ -8,7 +8,7 @@
         src="https://img.picgo.net/2024/08/09/title_base223d2708d7c4dc262.png">
 
       <div class="menu" :style="{ 'right': bgVideoIsLoading ? '0' : '' }">
-        <p class="title"><a href="#CG_show">C G 鉴赏</a></p>
+        <p class="title"><a href="#CG_show" @click="playVoice('src/assets/system_voice/ATR_sys_008.wav')">C G 鉴赏</a></p>
         <p class="title"><a href="#">BGM 鉴赏</a></p>
         <p class="title"><a href="#">AI talk</a></p>
         <p class="title"><a href="#">更新log</a></p>
@@ -18,12 +18,8 @@
     <audio id="start_voice" preload autoplay>
       <source src="../assets/system_voice/ATR_sys_004.wav" type="audio/wav">
     </audio>
-    <div class="container" id="CG_show">
-      <div class="head">
-        <h2 class="title">Memory</h2>
-
-
-
+    <container title="Memory" id="CG_show">
+      <template v-slot:right>
         <div class="radio-inputs">
           <label class="radio" @click="changeCgStyle('list')">
             <input type="radio" name="radio" checked="">
@@ -36,15 +32,15 @@
 
 
         </div>
-
-      </div>
-      <div class="content">
+      </template>
+      <template v-slot:content>
+        <div class="content">
         <div class="list_box">
           <ul class="cg_list" v-show="CGStyle == 'list'">
             <li v-for="item in cg_single_list" class="cg_info" :key="item" @click="showCG(item)">
 
               
-              <el-image :src="StringToURL(item.coverURL).href">
+              <el-image lazy :src="StringToURL(item.coverURL).href">
                 <template #placeholder>
 
                   <div class="loader">
@@ -66,7 +62,7 @@
           </ul>
           <el-carousel v-show="CGStyle == 'card'" class="cg_card" indicator-position="none" :interval="4000" type="card"
             height="300px">
-            <el-carousel-item v-for="item in cg_single_list" :key="item" @click="showCG(item)">
+            <el-carousel-item v-for="item in cg_list[0].list" :key="item" @click="showCG(item)">
               <div class="imgBox">
                 <img :src="StringToURL(item.coverURL).href" alt=" ">
               </div>
@@ -74,28 +70,20 @@
           </el-carousel>
         </div>
       </div>
+      </template>
+    </container>
 
+    <container title="BGM奖赏" id="bgm_list">
+      <template v-slot:content>
 
-    </div>
-    <h2>{{ isCGplayerShow }}</h2>
+      </template>
+    </container>
+    
     <CGplayer v-show="isCGplayerShow"  @close="closeCG">
-      <div class="imgBox">
-        <img id="cg" v-show="CGisLoading" @load="loadSuccess" :src="StringToURL(CGurl).href" @click="nextCG">
-        <div class="loader" v-show="!CGisLoading">
-          <span class="l">L</span>
-          <span class="o">o</span>
-          <span class="a">a</span>
-          <span class="d">d</span>
-          <span class="i">i</span>
-          <span class="n">n</span>
-          <span class="g">g</span>
-          <span class="d1">.</span>
-          <span class="d2">.</span>
-        </div>
-      </div>
-      <!-- <el-image preview-teleported :src="StringToURL(CGurl).href" @click="nextCG">
+  
+      <el-image :src="StringToURL(CGurl).href"  @click="nextCG">
+        
         <template #placeholder>
-
           <div class="loader">
             <span class="l">L</span>
             <span class="o">o</span>
@@ -108,15 +96,13 @@
             <span class="d2">.</span>
           </div>
         </template>
-        <template #error>
-          <div class="image-slot">
-            <el-icon><icon-picture /></el-icon>
-          </div>
-        </template>
-      </el-image> -->
+          
+        
+      </el-image>
       
     </CGplayer>
 
+    <comment></comment>
 
   </div>
 </template>
@@ -124,11 +110,14 @@
 <script>
 import CGplayer from '@/components/common/cgplayer.vue'
 import Button_one from '@/components/common/button_one.vue'
+import Container from '@/components/context/home/container.vue'
+import comment from '@/components/common/comment.vue'
 
 import { useCounterStore } from '/src/store/index.js'
 import { storeToRefs } from 'pinia'
 
 import { StringToURL } from '/src/utils/index.js'
+
 
 const store = useCounterStore()
 let { systeam_voice } = storeToRefs(store)
@@ -439,7 +428,7 @@ export default {
       childCG: [],
       CGindex: 0,
       isCGplayerShow:false,
-      CGisLoading:false,
+  
 
       bgVideoIsLoading: false,
 
@@ -448,6 +437,8 @@ export default {
   components: {
     CGplayer,
     Button_one,
+    Container,
+    comment,
 
   },
   
@@ -485,9 +476,14 @@ export default {
       this.cg_single_list = this.cg_list[0].list.slice((index - 1) * this.list_count, index * this.list_count)
 
     },
-    loadSuccess:function(e){
-
-      this.CGisLoading = true
+    
+    playVoice:function(url){
+      var audio = document.createElement('audio') 
+      
+      audio.src = url
+      audio.autoplay = true
+      audio.preload = true
+      document.body.appendChild(audio) 
     }
   },
   created() {
@@ -607,30 +603,7 @@ export default {
   }
 }
 
-.container {
-  width: 100%;
 
-  background: rgb(255, 255, 255);
-
-  .head {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-bottom: 1px solid lightgrey;
-
-    .title {
-      color: #0953b3;
-      font-weight: bolder;
-      padding: 2rem 5rem;
-    }
-  }
-
-  .content {
-    width: 94%;
-    margin: 0 auto;
-    padding: 2rem 0;
-  }
-}
 
 
 #CG_show {
