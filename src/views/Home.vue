@@ -34,7 +34,7 @@
         </div>
       </template>
       <template v-slot:content>
-        <div class="content">
+        
         <div class="list_box">
           <ul class="cg_list" v-show="CGStyle == 'list'">
             <li v-for="item in cg_single_list" class="cg_info" :key="item" @click="showCG(item)">
@@ -69,13 +69,15 @@
             </el-carousel-item>
           </el-carousel>
         </div>
-      </div>
+      
       </template>
     </container>
 
     <container title="BGM奖赏" id="bgm_list">
       <template v-slot:content>
+        <div class="bgm_list">
 
+        </div>
       </template>
     </container>
     
@@ -518,6 +520,7 @@ export default {
 <style scoped lang="scss">
 .banner {
   width: 100%;
+  min-height: 80vh;
   overflow: hidden;
   animation: show 1s;
   .bgImg {

@@ -327,4 +327,9 @@ export default {
   display: block !important;
 
 }
+
+::v-deep .aplayer .aplayer-list ol {
+    
+    height: 260px;
+}
 </style>

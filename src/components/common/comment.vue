@@ -13,7 +13,7 @@ onMounted(() => {
     el: el.value,
     pageKey: location.pathname,
     pageTitle: `${document.title}`,
-    server: 'http://localhost:8078',
+    server: 'http://127.0.0.1:8080',
     site: 'Artalk 的博客',
     // ...
   })
