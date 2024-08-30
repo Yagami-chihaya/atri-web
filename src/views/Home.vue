@@ -1,6 +1,6 @@
 <template>
   <div>
-
+    <topNavbar></topNavbar>
     <div class="banner">
       <video id="bgvideo" v-show="bgVideoIsLoading" src="https://img.picgo.net/2024/08/21/4k_1b6a9d7ef844c4d7e.mp4"
         loop="loop" autoplay="autoplay" preload="metadata" muted></video>
@@ -114,6 +114,7 @@ import CGplayer from '@/components/common/cgplayer.vue'
 import Button_one from '@/components/common/button_one.vue'
 import Container from '@/components/context/home/container.vue'
 import comment from '@/components/common/comment.vue'
+import topNavbar from '@/components/common/topNavbar.vue';
 
 import { useCounterStore } from '/src/store/index.js'
 import { storeToRefs } from 'pinia'
@@ -441,6 +442,7 @@ export default {
     Button_one,
     Container,
     comment,
+    topNavbar,
 
   },
   

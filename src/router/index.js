@@ -9,6 +9,11 @@ const router = createRouter({
       redirect:'/home'
     },
     {
+      path:'/:catchAll(.*)',
+      name:'404',
+      component:()=>import('../views/Error.vue')
+    },
+    {
       path: '/home',
       name: 'home',
 
