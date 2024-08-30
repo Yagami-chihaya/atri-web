@@ -8,7 +8,6 @@
     </div>
 
   </div>
-
 </template>
 
 <script>
@@ -222,7 +221,8 @@ export default {
         volume: .4,
 
 
-      }
+      },
+
     }
   },
   computed: {
@@ -252,43 +252,47 @@ export default {
     },
     StringToURL,
 
+    
   },
 
-  mounted() {
-    let vm = this
-    let minePlayer = document.getElementsByClassName('minePlayer')[0]
-    let titleDOM = minePlayer.querySelector('.title')
+mounted() {
+  let vm = this
+  let minePlayer = document.getElementsByClassName('minePlayer')[0]
+  let titleDOM = minePlayer.querySelector('.title')
 
-    const store = useCounterStore()
-    const { aPlayer } = storeToRefs(store)
+  const store = useCounterStore()
+  const { aPlayer } = storeToRefs(store)
 
-    
 
-    this.initPlayer().then(player => {
+  
 
-      aPlayer.value = player
+  //播放器实例化后触发回调 更改标题
+
+  this.initPlayer().then(player => {
+
+    aPlayer.value = player
+    titleDOM.animate([
+
+      { transform: 'translateX(-30px)', opacity: .5, offset: 0 },
+      { transform: 'translateX(0)', opacity: 1, offset: .3 },
+      { transform: 'translateX(0)', opacity: 1, offset: .7 },
+      { transform: 'translateX(600px)', opacity: 0, offset: 1 }
+    ], 5000)
+
+
+    player.on('listswitch', function (e) {
+      vm.title_img_index = e.index + 1
+      //切换动画
       titleDOM.animate([
 
         { transform: 'translateX(-30px)', opacity: .5, offset: 0 },
-        { transform: 'translateX(0)', opacity: 1, offset: .3 },
+        { transform: 'translateX(0)', opacity: 1, offset: .2 },
         { transform: 'translateX(0)', opacity: 1, offset: .7 },
         { transform: 'translateX(600px)', opacity: 0, offset: 1 }
-      ], 5000)
-
-
-      player.on('listswitch', function (e) {
-        vm.title_img_index = e.index + 1
-        //切换动画
-        titleDOM.animate([
-
-          { transform: 'translateX(-30px)', opacity: .5, offset: 0 },
-          { transform: 'translateX(0)', opacity: 1, offset: .2 },
-          { transform: 'translateX(0)', opacity: 1, offset: .7 },
-          { transform: 'translateX(600px)', opacity: 0, offset: 1 }
-        ], 3000)
-      });
-    })
-  }
+      ], 3000)
+    });
+  })
+}
 }
 </script>
 
@@ -329,7 +333,7 @@ export default {
 }
 
 ::v-deep .aplayer .aplayer-list ol {
-    
-    height: 260px;
+
+  height: 260px;
 }
 </style>

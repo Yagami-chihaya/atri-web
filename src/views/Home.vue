@@ -9,10 +9,10 @@
 
       <div class="menu" :style="{ 'right': bgVideoIsLoading ? '0' : '' }">
         <p class="title"><a href="#CG_show" @click="playVoice('src/assets/system_voice/ATR_sys_008.wav')">C G 鉴赏</a></p>
-        <p class="title"><a href="#">BGM 鉴赏</a></p>
+        <p class="title"><a href="#bgm_list">BGM 鉴赏</a></p>
         <p class="title"><a href="#">AI talk</a></p>
         <p class="title"><a href="#">更新log</a></p>
-        <p class="title"><a href="#">Comments</a></p>
+        <p class="title"><a href="#comment">Comments</a></p>
       </div>
     </div>
     <audio id="start_voice" preload autoplay>
@@ -104,7 +104,7 @@
       
     </CGplayer>
 
-    <comment></comment>
+    <comment id="comment"></comment>
 
   </div>
 </template>

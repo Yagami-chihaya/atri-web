@@ -2,12 +2,12 @@
 <template>
   
   <div  id="nav">
-    <div v-show="isLogin">
+    <div>
       <topNavbar></topNavbar>
       <RouterView/>
       <aplayer></aplayer>
     </div>
-    <login v-show="!isLogin"></login>
+    <!-- <login v-show="!isLogin"></login> -->
     
   </div>
   
