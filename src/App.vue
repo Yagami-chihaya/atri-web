@@ -6,6 +6,7 @@
       
       <RouterView/>
       <aplayer></aplayer>
+     
     </div>
     <!-- <login v-show="!isLogin"></login> -->
     

@@ -3,6 +3,7 @@
   min-height: 80vh;
   overflow: hidden;
   animation: show 1s;
+
   .bgImg {
     position: absolute;
     top: 0;
@@ -76,11 +77,12 @@
 }
 
 @keyframes show {
-  0%{
+  0% {
     opacity: 0;
     transform: translateY(-500px);
   }
-  100%{
+
+  100% {
     opacity: 1;
     transform: translateY(0);
   }
@@ -90,6 +92,7 @@
 
 
 #CG_show {
+  background: none;
 
   .radio-inputs {
     position: relative;
@@ -102,7 +105,7 @@
     padding: 0.25rem;
     width: 18rem;
     font-size: 1rem;
-    margin-right:2rem;
+    margin-right: 2rem;
   }
 
   .radio-inputs .radio {
@@ -188,7 +191,44 @@
   }
 }
 
-#Background_list{
+#Background_list {
+  background: none;
+  button {
+    margin-right: 2rem;
+    z-index: 2;
+    --button_radius: 0.75em;
+    --button_color: #e8e8e8;
+    --button_outline_color: #545454;
+    font-size: .8rem;
+    font-weight: bold;
+    border: none;
+    border-radius: var(--button_radius);
+    background: var(--button_outline_color);
+    cursor: pointer;
+  }
+
+  .button_top {
+    display: block;
+    box-sizing: border-box;
+    border: 2px solid var(--button_outline_color);
+    border-radius: var(--button_radius);
+    padding: 0.75em 1.5em;
+    background: var(--button_color);
+    color: var(--button_outline_color);
+    transform: translateY(-0.2em);
+    transition: transform 0.1s ease;
+  }
+
+  button:hover .button_top {
+
+    transform: translateY(-0.33em);
+  }
+
+  button:active .button_top {
+
+    transform: translateY(0);
+  }
+
   .cg_list {
     display: flex;
     justify-content: space-evenly;
@@ -201,6 +241,7 @@
     }
 
     li {
+      position: relative;
       cursor: pointer;
       border: 1px solid lightgrey;
       list-style: none;
@@ -217,11 +258,94 @@
         transition: .3s;
       }
 
+      a.animBtn:link,
+      a.animBtn:visited {
+        display: block;
+        opacity: 0;
+        z-index: 1;
+        position: absolute;
+        top: 0;
+        right: 0;
+        transition: .5s;
+
+        font-size: .8rem;
+        padding: 5px 5px;
+        border: 2px solid #fff;
+        background: rgba(255, 255, 255, 0.2);
+        color: #fff;
+        text-align: center;
+        text-decoration: none;
+        text-transform: uppercase;
+        overflow: hidden;
+        letter-spacing: .08em;
+        text-shadow: 0 0 1px rgba(0, 0, 0, 0.2), 0 1px 0 rgba(0, 0, 0, 0.2);
+        transition: all .3s ease;
+
+        &:after {
+          content: "";
+          position: absolute;
+          background: none repeat scroll 0 0 #ffffffc0;
+          height: 0%;
+          left: 50%;
+          top: 50%;
+          width: 100%;
+          z-index: -1;
+          transition: all .3s ease 0s;
+        }
+
+        &:hover {
+          color: #727272;
+          text-shadow: none;
+
+          &:after {
+            height: 420%;
+          }
+        }
+      }
+
+      a.animBtn {
+        &.themeA:after {
+          transform: translateX(-50%) translateY(-50%) rotate(-45deg);
+        }
+
+        &.themeB:after {
+          transform: translateX(-50%) translateY(-50%) rotate(45deg);
+        }
+
+        &.themeC:after {
+          opacity: .5;
+          transform: translateX(-50%) translateY(-50%);
+        }
+
+        &.themeC:hover:after {
+          height: 140%;
+          opacity: 1;
+        }
+
+        &.themeD:after {
+          width: 0%;
+          border-radius: 50%;
+          opacity: .5;
+          transform: translateX(-50%) translateY(-50%);
+        }
+
+        &.themeD:hover:after {
+          height: 450%;
+          width: 110%;
+          opacity: 1;
+        }
+      }
+
     }
 
     li:hover {
       .el-image {
         scale: 1.2;
+      }
+
+      a.animBtn:link,
+      a.animBtn:visited {
+        opacity: 1;
       }
     }
   }
@@ -229,10 +353,30 @@
 
 .cgPlayer {
   z-index: 2;
+  .tips{
+    color: #919191;
+    font-size: .8rem;
+    position: absolute;
+    top: 1rem;
+    left: 2rem;
+  }
+  .setWallpaperButton{
+    position: absolute;
+
+    top: 0;
+    right: 50px;
+    cursor: pointer;
+    img{
+      width: 30px;
+      height: 30px;
+      padding: 10px;
+    }
+  }
+
 
   img {
     width: 100%;
-    z-index:2;
+    z-index: 2;
     position: relative;
   }
 
@@ -246,6 +390,7 @@
     color: var(--el-text-color-secondary);
     font-size: 30px;
   }
+
   .demo-image__error .image-slot .el-icon {
     font-size: 30px;
   }
@@ -258,12 +403,13 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  
+
   z-index: 1;
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%,-50%);
+  transform: translate(-50%, -50%);
+
   .l {
     color: black;
     opacity: 0;
@@ -371,5 +517,25 @@
     100% {
       opacity: 1;
     }
+  }
+}
+
+.cover {
+  position: fixed;
+  z-index: -1;
+  height: 100vh;
+  width: 100vw;
+
+  img {
+    width: 100%;
+    height: 100%;
+    opacity: 1;
+    position: fixed;
+  }
+
+  .bg img {
+    width: 100%;
+    height: 100%;
+    opacity: .7;
   }
 }

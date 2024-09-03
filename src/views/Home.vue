@@ -1,5 +1,12 @@
 <template>
   <div>
+    <div class="cover">
+      <img src="@\assets\img\white_bg.png" alt="">
+      <div class="bg">
+        <img ref="bg_img" src="">
+      </div>
+      
+    </div>
     <topNavbar></topNavbar>
     <div class="banner">
       <video id="bgvideo" v-show="bgVideoIsLoading" src="https://img.picgo.net/2024/08/21/4k_1b6a9d7ef844c4d7e.mp4"
@@ -37,7 +44,7 @@
         
         <div class="list_box">
           <ul class="cg_list" v-show="CGStyle == 'list'">
-            <li v-for="item in cg_single_list" class="cg_info" :key="item" @click="showCG(item)">
+            <li v-for="item in cg_single_list" class="cg_info" :key="item" @click="showCG(item,'cg')">
 
               
               <el-image lazy :src="StringToURL(item.coverURL).href">
@@ -62,7 +69,7 @@
           </ul>
           <el-carousel v-show="CGStyle == 'card'" class="cg_card" indicator-position="none" :interval="4000" type="card"
             height="300px">
-            <el-carousel-item v-for="item in cg_list[0].list" :key="item" @click="showCG(item)">
+            <el-carousel-item v-for="item in cg_list[0].list" :key="item" @click="showCG(item,'cg')">
               <div class="imgBox">
                 <img :src="StringToURL(item.coverURL).href" alt=" ">
               </div>
@@ -74,12 +81,18 @@
     </container>
 
     <container title="Background" id="Background_list">
+      <template v-slot:right>
+       
+        <button @click="setBackground('')">
+          <span class="button_top">还原背景</span>
+        </button>
+      </template>
       <template v-slot:content>
         <div class="list_box">
           <ul class="cg_list">
-            <li v-for="item in background_single_list" class="cg_info" :key="item" @click="showCG(item)">
+            <li v-for="item in background_single_list" class="cg_info" :key="item" @click="showCG(item,'bg')">
 
-              
+              <a href="javascript:void(0)" class="animBtn themeC" @click.stop="setBackground(StringToURL(item.url))">设置为网页背景</a>
               <el-image lazy :src="StringToURL(item.coverURL).href">
                 <template #placeholder>
 
@@ -106,7 +119,13 @@
     </container>
     
     <CGplayer v-show="isCGplayerShow"  @close="closeCG">
-  
+      <div class="tips">
+        (tips:点击图片可以切换下一张)
+      </div>
+
+      <div class="setWallpaperButton" v-show="isShowSetWallpaperButton" @click.stop="setBackground(StringToURL(CGurl).href)">
+        <img src="@/assets/img/set_bg.png" alt="">
+      </div>
       <el-image :src="StringToURL(CGurl).href"  @click="nextCG">
         
         <template #placeholder>
@@ -165,11 +184,11 @@ export default {
       childCG: [],
       CGindex: 0,
       isCGplayerShow:false,
-  
+      //背景图片列表
       background_list,
       background_single_list:[],
 
-
+      isShowSetWallpaperButton:false,
       bgVideoIsLoading: false,
 
     }
@@ -185,8 +204,14 @@ export default {
   
   methods: {
     StringToURL,
-    showCG: function (item) {
-   
+    showCG: function (item,type) {
+      //判断展示的图片类型
+      if(type=='cg'){
+        this.isShowSetWallpaperButton = false
+      }else if(type=='bg'){
+        this.isShowSetWallpaperButton = true
+      }
+
       this.isCGplayerShow = true
       this.CGurl = item.url
 
@@ -228,7 +253,12 @@ export default {
       audio.autoplay = true
       audio.preload = true
       document.body.appendChild(audio) 
-    }
+    },
+    setBackground:function(url){
+      const bg_img = this.$refs.bg_img
+      bg_img.src = url
+      console.log(bg_img,'bg_img')
+    },
   },
   created() {
     this.changeCGPage(1)
